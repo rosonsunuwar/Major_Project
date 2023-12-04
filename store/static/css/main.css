@@ -1,0 +1,10 @@
+body{
+    background-color: red;
+}
+.navbar {
+    color: darkblue I !important;
+}
+.cart a img{
+    height: 30px;
+    float: right;
+}
