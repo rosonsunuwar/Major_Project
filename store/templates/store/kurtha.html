@@ -1,0 +1,23 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block title %}Kurtha|EShop{% endblock %}
+{% block kurtha_active %}active{% endblock %}
+{% block content %}
+<div class="container">
+    {% include 'store/gif/gif.html' %}
+    <div class="row">
+        {% for kurtha in kurthas %}
+        <div class="col-lg-4 my-2">
+            <img class="thumbnail" src="{{ kurtha.image.url }}" alt="{{ kurtha.name }}">
+            <div class="box product">
+                <h3><strong>{{ kurtha.name }}</strong></h3>
+                <hr>
+                <button class="btn btn-outline-secondary">Add to Cart</button>
+                <a href="#" class="btn btn-outline-success">View</a>
+                <h4 style="display: inline; float:right;">Rs.{{ kurtha.price }}</h4>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block title %}T_Shirt|EShop{% endblock %}
+{% block t_shirt_active %}active{% endblock %}
+{% block content %}
+<div class="container">
+    {% include 'store/gif/gif.html' %}
+    <div class="row">
+        {% for t_shirt in t_shirts %}
+        <div class="col-lg-4 my-2">
+            <img class="thumbnail" src="{{ t_shirt.image.url }}" alt="{{ t_shirt.name }}">
+            <div class="box t_shirt">
+                <h3><strong>{{ t_shirt.name }}</strong></h3>
+                <hr>
+                <button class="btn btn-outline-secondary">Add to Cart</button>
+                <a href="#" class="btn btn-outline-success">View</a>
+                <h4 style="display: inline; float:right;">Rs.{{ t_shirt.price }}</h4>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

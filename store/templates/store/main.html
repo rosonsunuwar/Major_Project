@@ -8,13 +8,13 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <title>EShop</title>
+    <title>{% block title %}{% endblock %}</title>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}">ESHOP</a>
+            <a class="navbar-brand" href="{% url 'store' %}">ESHOP</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -23,7 +23,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Store</a>
+                        <a class="nav-link {% block store_active %}{% endblock %}" aria-current="page" href="{% url 'store' %}">Store</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block saree_active %}{% endblock %}" aria-current="page" href="{% url 'saree' %}">Saree</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block kurtha_active %}{% endblock %}" aria-current="page" href="{% url 'kurtha' %}">Kurtha</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block t_shirt_active %}{% endblock %}" aria-current="page" href="{% url 't_shirt' %}">T_Shirt</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block pant_active %}{% endblock %}" aria-current="page" href="{% url 'pant' %}">Pant</a>
                     </li>
                 </ul>
                 <div class="form-inline my-2 mx-2 my-lg-0">
