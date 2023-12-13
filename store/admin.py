@@ -1,7 +1,8 @@
 from django.contrib import admin
-from store.models import T_Shirt, Kurtha, Saree, Pant
+from store.models import *
 # Register your models here.
-admin.site.register(Saree)
-admin.site.register(Kurtha)
-admin.site.register(T_Shirt)
-admin.site.register(Pant)
+admin.site.register(Customer)
+admin.site.register(Product)
+admin.site.register(Order)
+admin.site.register(OrderItem)
+admin.site.register(ShippingAddress)

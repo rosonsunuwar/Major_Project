@@ -1,46 +1,56 @@
 from django.shortcuts import render
 
-from store.models import Saree, Kurtha, T_Shirt, Pant
+from store.models import *
 from django.views import generic
 
 
 # Create your views here.
-class HomeView(generic.TemplateView):
+class HomeView(generic.ListView):
+    models= Product
+    context_object_name = 'products'
     template_name = 'store/store.html'
 
-
-class SareeListView(generic.ListView):
-    template_name= 'store/saree.html'
-    models = Kurtha
-    context_object_name = 'sarees'
-    
     def get_queryset(self):
-        return Saree.objects.all().order_by('name')
+        return Product.objects.all()
     
-class KurthaListView(generic.ListView):
-    template_name= 'store/kurtha.html'
-    models = Kurtha
-    context_object_name = 'kurthas'
     
-    def get_queryset(self):
-        return Kurtha.objects.all().order_by('name')
-class T_ShirtListView(generic.ListView):
-    template_name= 'store/t_shirt.html'
-    models = T_Shirt
-    context_object_name = 't_shirts'
-    
-    def get_queryset(self):
-        return T_Shirt.objects.all().order_by('name')
-    
-class PantListView(generic.ListView):
-    template_name= 'store/pant.html'
-    models = Pant
-    context_object_name = 'pants'
-    
-    def get_queryset(self):
-        return Pant.objects.all().order_by('name')
-    
+# class CartListView(generic.ListView):
+#     context_object_name = 'items'
+#     template_name = 'store/cart.html'
+#     def cart(request):
+#         if request.user.is_authenticated:
+#             customer = request.user.customer
+#             order, created = Order.objects.get_or_create(customer= customer, complete= False)
+#             items = order.orderitem_set.all()
+#         else:
+#             items = []
+#     def get_queryset(self):
+#         return OrderItem.objects.all()
 def cart(request):
-    return render (request, 'store/cart.html')
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer= customer, complete= False)
+        items = order.orderitem_set.all()
+    else:
+        items = []
+        order = {'get_cart_items': 0, 'get_cart_total': 0}
+        
+    context = {
+        'items': items,
+        'order': order,
+    }
+    return render (request, 'store/cart.html', context)
 def checkout(request):
-    return render (request, 'store/checkout.html')
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer= customer, complete= False)
+        items = order.orderitem_set.all()
+    else:
+        items = []
+        order = {'get_cart_items': 0, 'get_cart_total': 0}
+        
+    context = {
+        'items': items,
+        'order': order,
+    }
+    return render (request, 'store/checkout.html', context)
