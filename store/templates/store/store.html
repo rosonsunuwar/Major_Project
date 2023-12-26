@@ -3,7 +3,7 @@
 {% block store_active %}active{% endblock %}
 {% block title %}EShop{% endblock %}
 {% block content %}
-  <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+  <!-- <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true"
         aria-label="Slide 1"></button>
@@ -37,7 +37,7 @@
     <div class="col-lg-6 d-none d-l-block d-xl-block">
       <img style="height: 250px;" src="{% static 'images/store/offer.gif' %}" alt="deal_gif">
     </div>
-  </div>
+  </div> -->
 
   <div class="row">
     {% for product in products %}
@@ -47,7 +47,7 @@
         <div class="box">
             <h3><strong>{{ product.name }}</strong></h3>
             <hr>
-            <button style="border-radius: 0;" class="btn btn-outline-secondary">Add to Cart</button>
+            <button data-product={{product.id}} data-action="add" style="border-radius: 0;" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
             <a style="border-radius: 0;" href="#" class="btn btn-outline-success">View</a>
             <h4 style="display: inline; float:right;">Rs.{{ product.price }}</h4>
         </div>
