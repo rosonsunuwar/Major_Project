@@ -1,12 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 import json
+
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from store.models import *
 
 
 
 # Create your views here.
+# @login_required(login_url='login')
 def home(request):
 	if request.user.is_authenticated:
 		customer = request.user.customer
@@ -23,6 +28,75 @@ def home(request):
 	context = {'products':products, 'cartItems':cartItems}
 	return render(request, 'store/store.html', context)
 
+# @login_required(login_url='login')
+def kurtha(request):
+	if request.user.is_authenticated:
+		customer = request.user.customer
+		order, created = Order.objects.get_or_create(customer=customer, complete=False)
+		items = order.orderitem_set.all()
+		cartItems = order.get_cart_items
+	else:
+		#Create empty cart for now for non-logged in user
+		items = []
+		order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
+		cartItems = order['get_cart_items']
+
+	products = Kurtha.objects.all()
+	context = {'products':products, 'cartItems':cartItems}
+	return render(request, 'store/category/kurtha.html', context)
+
+# @login_required(login_url='login')
+def saree(request):
+	if request.user.is_authenticated:
+		customer = request.user.customer
+		order, created = Order.objects.get_or_create(customer=customer, complete=False)
+		items = order.orderitem_set.all()
+		cartItems = order.get_cart_items
+	else:
+		#Create empty cart for now for non-logged in user
+		items = []
+		order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
+		cartItems = order['get_cart_items']
+
+	products = Saree.objects.all()
+	context = {'products':products, 'cartItems':cartItems}
+	return render(request, 'store/category/saree.html', context)
+
+# @login_required(login_url='login')
+def tshirt(request):
+	if request.user.is_authenticated:
+		customer = request.user.customer
+		order, created = Order.objects.get_or_create(customer=customer, complete=False)
+		items = order.orderitem_set.all()
+		cartItems = order.get_cart_items
+	else:
+		#Create empty cart for now for non-logged in user
+		items = []
+		order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
+		cartItems = order['get_cart_items']
+
+	products = Tshirt.objects.all()
+	context = {'products':products, 'cartItems':cartItems}
+	return render(request, 'store/category/tshirt.html', context)
+
+# @login_required(login_url='login')
+def pant(request):
+	if request.user.is_authenticated:
+		customer = request.user.customer
+		order, created = Order.objects.get_or_create(customer=customer, complete=False)
+		items = order.orderitem_set.all()
+		cartItems = order.get_cart_items
+	else:
+		#Create empty cart for now for non-logged in user
+		items = []
+		order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
+		cartItems = order['get_cart_items']
+
+	products = Pant.objects.all()
+	context = {'products':products, 'cartItems':cartItems}
+	return render(request, 'store/category/pant.html', context)
+
+@login_required(login_url='login')
 def cart(request):
     if request.user.is_authenticated:
         customer = request.user.customer
@@ -40,6 +114,8 @@ def cart(request):
         'cartItems': cartItems
     }
     return render (request, 'store/cart.html', context)
+
+@login_required(login_url='login')
 def checkout(request):
     if request.user.is_authenticated:
         customer = request.user.customer
@@ -71,6 +147,7 @@ def updateItem(request):
     
     customer = request.user.customer
     product = Product.objects.get(id=productId)
+    
     order, created = Order.objects.get_or_create(customer= customer, complete= False)
     
     orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
@@ -84,3 +161,25 @@ def updateItem(request):
     if orderItem.quantity <= 0:
         orderItem.delete()
     return JsonResponse("Item was added", safe=False)
+
+
+
+def loginPage(request):
+    if request.user.is_authenticated:
+        return redirect('store')
+    else:
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('store')
+            else:
+                messages.info(request, "Username or Password is incorrect.")
+        return render(request, 'store/login.html')
+
+def logoutPage(request):
+    logout(request)
+    return redirect('login')

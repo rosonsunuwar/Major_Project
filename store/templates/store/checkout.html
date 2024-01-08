@@ -31,11 +31,14 @@
         <br>
         <div class="box hidden" id="payment-info">
             <small>Payment Option</small>
-            <div class="option">
+            <div id="make-payment">
+                <button>Make Payment</button>
+            <!-- <div class="option">
                 <img class="payment" src="{% static 'images/khalti.png' %}">
                 <img class="payment" src="{% static 'images/esewa.webp' %}">
                 <img class="payment" src="{% static 'images/cod.png' %}">
-            </div>
+            </div> -->
+        </div>
         </div>
     </div>
 
@@ -53,7 +56,7 @@
                     <p>{{ item.product.name }}</p>
                 </div>
                 <div style="flex: 1;">
-                    <p>Rs.{{ item.product.price }}</p>
+                    <p>Rs. {{ item.product.price }}</p>
                 </div>
                 <div style="flex: 1;">
                     <p>x{{ item.quantity }}</p>
@@ -66,11 +69,21 @@
     </div>
 </div>
 <script type="text/javascript">
+
+
+    if(user != 'AnonymousUser') {
+        document.getElementById('user-info').innerHTML = ''
+    }
     document.getElementById('form-button').addEventListener('click', function (event) {
         event.preventDefault();
         document.getElementById('form-button').classList.add('hidden');
         document.getElementById('payment-info').classList.remove('hidden');
     });
-
+    document.getElementById('make-payment').addEventListener('click', function(event) {
+        submitFormData()
+    })
+    function submitFormData(){
+        console.log('Payment Button Clicked')
+    }
 </script>
 {% endblock %}

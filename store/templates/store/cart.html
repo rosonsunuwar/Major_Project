@@ -19,7 +19,7 @@
                 <h5>Items: <strong>{{ order.get_cart_items }}</strong></h5>
             </th>
             <th>
-                <h5>Total: <strong>Rs.{{ order.get_cart_total }}</strong></h5>
+                <h5>Total: <strong>Rs. {{ order.get_cart_total }}</strong></h5>
             </th>
             <th>
                 <a class="btn btn-success" style="float: right; margin: 5px;" href="{% url 'checkout' %}">Checkout</a>
@@ -49,7 +49,7 @@
                         <img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" src="{% static 'images/cart/arrow-down.png' %}">
                     </div>
                 </div>
-                <div style="flex: 1;">Rs{{ item.get_total }}</div>
+                <div style="flex: 1;">Rs {{ item.get_total }}</div>
             </div>
             {% endfor %}
         </div>

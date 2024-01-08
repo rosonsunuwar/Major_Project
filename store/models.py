@@ -14,7 +14,66 @@ class Customer(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=200, null=True)
     price = models.IntegerField()
-    digital = models.BooleanField(default= False, null=True, blank=True)
+    image = models.ImageField(null=True, blank=True, upload_to='products/')
+    
+    def __str__(self):
+        return self.name
+    
+    @property
+    def imageURL(self):
+        try: 
+            url = self.image.url
+        except:
+            url = ''
+        return url
+class Kurtha(models.Model):
+    name = models.CharField(max_length=200, null=True)
+    price = models.IntegerField()
+    image = models.ImageField(null=True, blank=True, upload_to='products/')
+    
+    def __str__(self):
+        return self.name
+    
+    @property
+    def imageURL(self):
+        try: 
+            url = self.image.url
+        except:
+            url = ''
+        return url
+class Saree(models.Model):
+    name = models.CharField(max_length=200, null=True)
+    price = models.IntegerField()
+    image = models.ImageField(null=True, blank=True, upload_to='products/')
+    
+    def __str__(self):
+        return self.name
+    
+    @property
+    def imageURL(self):
+        try: 
+            url = self.image.url
+        except:
+            url = ''
+        return url
+class Tshirt(models.Model):
+    name = models.CharField(max_length=200, null=True)
+    price = models.IntegerField()
+    image = models.ImageField(null=True, blank=True, upload_to='products/')
+    
+    def __str__(self):
+        return self.name
+    
+    @property
+    def imageURL(self):
+        try: 
+            url = self.image.url
+        except:
+            url = ''
+        return url
+class Pant(models.Model):
+    name = models.CharField(max_length=200, null=True)
+    price = models.IntegerField()
     image = models.ImageField(null=True, blank=True, upload_to='products/')
     
     def __str__(self):

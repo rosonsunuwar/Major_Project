@@ -36,7 +36,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'store' %}">ESHOP</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -50,13 +50,34 @@
                         <a class="nav-link {% block store_active %}{% endblock %}" aria-current="page"
                             href="{% url 'store' %}">Store</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block kurtha_active %}{% endblock %}" aria-current="page"
+                            href="{% url 'kurtha' %}">Kurtha</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block saree_active %}{% endblock %}" aria-current="page"
+                            href="{% url 'saree' %}">Saree</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block tshirt_active %}{% endblock %}" aria-current="page"
+                            href="{% url 'tshirt' %}">T-Shirt</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% block pant_active %}{% endblock %}" aria-current="page"
+                            href="{% url 'pant' %}">Pant</a>
+                    </li>
                 </ul>
                 <div class="form-inline my-2 mx-2 my-lg-0">
-                    <a style="padding: 5px 9px;" href="#" class="btn btn-warning">Login</a>
+                    {% if user.is_authenticated %}
+                    <span class="user-msg">Hello, {{ request.user }}</span>
+                    <span class="my-1"><a class="user-msg" href="{% url 'logout' %}">Logout</a></span>
                     <a href="{% url 'cart' %}">
                         <img id="cart-icon" src="{% static 'images/main/cart.png' %}" alt="cart-pic">
                     </a>
                     <p id="cart-total">{{cartItems}}</p>
+                    {% else %}
+                    <span class="my-1"><a class="user-msg" href="{% url 'login' %}">Login</a></span>
+                    {% endif %}
                 </div>
             </div>
         </div>
