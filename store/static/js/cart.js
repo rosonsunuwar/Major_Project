@@ -12,6 +12,7 @@ for (var i = 0; i < updateBtns.length; i++) {
 
         if (user === 'AnonymousUser') {
             console.log('User is not authenticated');
+			alert("Login in order to shop")
         } else {
             updateUserOrder(productId, action);
         }

@@ -110,10 +110,20 @@
 
 .payment{
     display: inline-block;
-    width: 20%;
+    width: 30%;
     height: 100px;
 }
 
+.option{
+    display: flex;
+    justify-content: center;
+    
+}
+
+
+.order-place {
+    width: 100%;
+}
 
 
 /* LOGIN PAGE */
@@ -172,3 +182,11 @@ input {
     font-family: 'Lemon', serif;
 
 }
+
+
+#message {
+    color: #fff;   
+    font-size: 20px;
+    color: red;
+}
+

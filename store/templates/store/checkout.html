@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-lg-6">
         <div class="box" id="form-wrapper">
-            <form id=form">
+            <form id="form">
                 <div id="user-info">
                     <div class="form-field">
                         <input required class="form-control" type="text" name="name" placeholder="Name..">
@@ -17,11 +17,10 @@
                     <p>Shipping Information:</p>
                     <hr>
                     <div class="form-field">
-                        <input class="form-control" type="text" name="address" placeholder="Address..">
-                        <input class="form-control" type="text" name="city" placeholder="City..">
-                        <input class="form-control" type="text" name="state" placeholder="State..">
-                        <input class="form-control" type="text" name="zipcode" placeholder="Zip Code..">
-                        <input class="form-control" type="text" name="country" placeholder="Country..">
+                        <input required class="form-control" type="text" name="address" placeholder="Address..">
+                        <input required class="form-control" type="text" name="city" placeholder="City..">
+                        <input required class="form-control" type="text" name="state" placeholder="State..">
+                        <input required class="form-control" type="text" name="country" placeholder="Country..">
                     </div>
                 </div>
                 <input style="border-radius: 0;" id="form-button" class="btn btn-success btn-block" type="submit"
@@ -32,13 +31,13 @@
         <div class="box hidden" id="payment-info">
             <small>Payment Option</small>
             <div id="make-payment">
-                <button>Make Payment</button>
-            <!-- <div class="option">
-                <img class="payment" src="{% static 'images/khalti.png' %}">
-                <img class="payment" src="{% static 'images/esewa.webp' %}">
-                <img class="payment" src="{% static 'images/cod.png' %}">
-            </div> -->
-        </div>
+                <div class="option">
+                    <!-- <img class="payment" src="{% static 'images/khalti.png' %}"> -->
+                    <!-- <img class="payment" src="{% static 'images/esewa.webp' %}"> -->
+                    <img class="payment" src="{% static 'images/cod.png' %}">
+                </div>
+                <button class="btn btn-outline-success my-2 order-place">Place Order</button>
+            </div>
         </div>
     </div>
 
@@ -70,20 +69,74 @@
 </div>
 <script type="text/javascript">
 
+    var total = '{{ order.get_cart_total }}';
 
-    if(user != 'AnonymousUser') {
+    if (user != 'AnonymousUser') {
         document.getElementById('user-info').innerHTML = ''
     }
+
     document.getElementById('form-button').addEventListener('click', function (event) {
         event.preventDefault();
         document.getElementById('form-button').classList.add('hidden');
         document.getElementById('payment-info').classList.remove('hidden');
     });
-    document.getElementById('make-payment').addEventListener('click', function(event) {
+
+    document.getElementById('make-payment').addEventListener('click', function (event) {
+        event.preventDefault();
         submitFormData()
     })
-    function submitFormData(){
+
+    function submitFormData(event) {
         console.log('Payment Button Clicked')
-    }
+
+        let userFormData = {
+            'name': null,
+            'email': null,
+            'total': total
+        };
+
+        let shippingInfo = {
+            'address': null,
+            'city': null,
+            'state': null,
+            'country': null
+        };
+
+        // Ensure the form exists and is correctly referenced
+        var form = document.getElementById('form'); // Replace 'yourFormId' with the actual ID of your form
+
+        if (form) {
+            shippingInfo.address = form.elements['address'].value
+            shippingInfo.city = form.elements['city'].value
+            shippingInfo.state = form.elements['state'].value
+            shippingInfo.country = form.elements['country'].value
+        }
+
+        if (user === 'AnonymousUser') {
+            userFormData.name = form.elements['name'].value
+            userFormData.email = form.elements['email'].value
+        }
+
+        var url = '/process-order/'
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({ 'form': userFormData, 'shipping': shippingInfo })
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+                alert("Transaction Completed");
+                window.location.href = "{% url 'store' %}"
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert("Error occurred during transaction");
+            });
+
+    };
 </script>
 {% endblock %}
