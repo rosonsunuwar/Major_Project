@@ -192,7 +192,7 @@ def processOrder(request):
         customer = request.user.customer
         order, created = Order.objects.get_or_create(
             customer=customer, complete=False)
-        total = float(data['form']['total'])    
+        total = float(data['form']['total'])
         order.transaction_id = transaction_id
 
         if total == float(order.get_cart_total):
@@ -234,3 +234,19 @@ def loginPage(request):
 def logoutPage(request):
     logout(request)
     return redirect('login')
+
+
+def facebook_view(request):
+    return redirect('https://www.facebook.com')
+
+
+def twitter_view(request):
+    return redirect('https://www.twitter.com')
+
+
+def instagram_view(request):
+    return redirect('https://www.instagram.com')
+
+
+def youtube_view(request):
+    return redirect('https://www.youtube.com')

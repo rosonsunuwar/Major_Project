@@ -13,6 +13,11 @@ urlpatterns = [
     path('update_item/', views.updateItem, name='update_item'),
     path('process-order/', views.processOrder, name='process-order'),
     path('login/', views.loginPage, name='login'),
-    path('logout/', views.logoutPage, name='logout')
+    path('logout/', views.logoutPage, name='logout'),
+    
+    path('facebook/', views.facebook_view, name='facebook'),
+    path('instagram/', views.instagram_view, name='instagram'),
+    path('twitter/', views.twitter_view, name='twitter'),
+    path('youtube/', views.youtube_view, name='youtube'),
     
 ]

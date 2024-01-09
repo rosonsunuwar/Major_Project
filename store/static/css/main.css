@@ -2,6 +2,10 @@
     margin: 0;
 }
 
+.container {
+    flex: 1;
+}
+
 .user-msg{
     margin-right: 10px;
     margin-top: 5px;
@@ -126,7 +130,60 @@
 }
 
 
-/* LOGIN PAGE */
+
+
+.outer-footer{
+    background-color: #0e6efd;
+    padding: 15px 15px;
+    margin-top: 50px;
+}
+.footer{
+    border:  solid 2px #ffdc4e;
+}
+
+.icons{
+    display: flex;
+    justify-content: center;
+    margin: 10px 10px;
+}
+
+.icons i{
+    margin: 10px 20px;
+    font-size: 25px;
+    color: #fff;
+}
+
+.icons i:hover{
+    color: #ffdc4e;
+}
+
+.policy{
+    display: flex;
+    justify-content: center;
+}
+
+.policy a{
+    padding: 10px 20px; 
+    color: #fff;
+    text-decoration: none;
+}
+
+.policy a:hover{
+    color: #ffdc4e;
+}
+
+.copy{
+    display: flex;
+    justify-content: center;
+}
+
+.copy p{
+    color: #fff;
+}
+
+
+
+/** LOGIN PAGE **/
 
 .background {
     background-image: url('../images/bg.avif');
@@ -151,7 +208,7 @@
 
 
 .login {
-    background-color: blue;
+    background-color: #0e6efd;
     height: 100vh;
 }
 
