@@ -1,6 +1,6 @@
 {% extends 'store/main.html'%}
 {% load static %}
-{% block title %}Checkout|EShop{% endblock %}
+{% block title %}Checkout | E-Shop{% endblock %}
 {% block content %}
 <div class="row">
     <div class="col-lg-6">
@@ -129,7 +129,7 @@
             .then((response) => response.json())
             .then((data) => {
                 console.log('Success:', data);
-                alert("Transaction Completed");
+                alert("Your Order was placed successfully!");
                 window.location.href = "{% url 'store' %}"
             })
             .catch((error) => {
